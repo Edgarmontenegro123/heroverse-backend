@@ -42,6 +42,12 @@ app.get('/api/characters/:id', async (req, res) => {
     }
 })
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
-})
+// Solo levanta el puerto de manera tradicional si no estamos en producción (Vercel)
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`Server running locally on port ${PORT}`)
+    })
+}
+
+// Exportación crucial para que Vercel tome el control en producción
+export default app
